@@ -23,16 +23,16 @@
         </div>
         <div id="target">
             <div class="square" id="square" ondrop="drop_handler(event);" ondragover="dragover_handler(event);"></div>
-            <!--
-                        <div class="triangle" id="triangle" ondrop="drop_handler(event);" ondragover="dragover_handler(event);"></div>
-            -->
+
             <div class="rectangle" id="rectangle" ondrop="drop_handler(event);"
                  ondragover="dragover_handler(event);"></div>
+            <div  id="triangle">
+                <svg class="triangle" id="triangleSVG" ondrop="drop_handler(event);" ondragover="dragover_handler(event);" >
+                    <polygon points="40,0 0,60 80,60"></polygon>
+                </svg>
+            </div>
 
         </div>
-
-
-
 
 
     </main>
@@ -47,12 +47,13 @@
 
         </li>
 
-        <li>
+        <li class="linethrough">
             Implementáld, hogy az elemek háttérszínei 2 másodperces időközzel villogjanak (a fehér és a választott
             háttérszín váltakozásával). A villogás legyen indítható és leállítható egy gomb segítségével.
 
         </li>
-        <li class="linethrough"> Implementáld, hogy az elemeket az egér segítségével lehessen „drag&drop” módon mozgatni.
+        <li class="linethrough"> Implementáld, hogy az elemeket az egér segítségével lehessen „drag&drop” módon
+            mozgatni.
         </li>
         <li class="linethrough">
             Készíts színpalettát: a felület bal oldalán helyezz el egy 8 elemű színpalettát (a grafikai

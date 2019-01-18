@@ -2,32 +2,30 @@
 /*--------------------------------------------Init Variable Settings--------------------------------*/
 :root {
 
-    --background-color: rgba(236, 240, 241,1.0);
+    --background-color: rgba(236, 240, 241, 1.0);
 
     --main-color-red: rgba(0, 0, 0, 0.4);
     --main-color-black: rgba(0, 0, 0, 1);
 
-    --shape-color-triangle: rgba(24, 220, 255,1.0);
-    --shape-color-regtangle: rgba(205, 132, 241,1.0);
-    --shape-color-square: rgba(255, 242, 0,1.0);
+    --shape-color-triangle: rgba(24, 220, 255, 1.0);
+    --shape-color-regtangle: rgba(205, 132, 241, 1.0);
+    --shape-color-square: rgba(255, 242, 0, 1.0);
 
-    --menu-color: rgba(255, 204, 204,1);
+    --menu-color: rgba(255, 204, 204, 1);
 
+    --menu-palett-color1: rgba(46, 204, 113, 1.0);
+    --menu-palett-color2: rgba(22, 160, 133, 1.0);
+    --menu-palett-color3: rgba(142, 68, 173, 1.0);
+    --menu-palett-color4: rgba(241, 196, 15, 1.0);
+    --menu-palett-color5: rgba(230, 126, 34, 1.0);
+    --menu-palett-color6: rgba(149, 165, 166, 1.0);
+    --menu-palett-color7: rgba(211, 84, 0, 1.0);
+    --menu-palett-color8: rgba(192, 57, 43);
 
-    --menu-palett-color1: rgba(46, 204, 113,1.0);
-    --menu-palett-color2: rgba(22, 160, 133,1.0);
-    --menu-palett-color3: rgba(142, 68, 173,1.0);
-    --menu-palett-color4: rgba(241, 196, 15,1.0);
-    --menu-palett-color5: rgba(230, 126, 34,1.0);
-    --menu-palett-color6: rgba(149, 165, 166,1.0);
-    --menu-palett-color7: rgba(211, 84, 0,1.0);
-    --menu-palett-color8: rgba(192, 57, 43,1.0);
-
-    --btn-on: rgba(58, 227, 116,1.0);
-    --btn-on-hover: rgba(50, 255, 126,1.0);
-    --btn-off:rgba(255, 56, 56,1.0);
-    --btn-off-hover: rgba(255, 77, 77,1.0);
-
+    --btn-on: rgba(58, 227, 116, 1.0);
+    --btn-on-hover: rgba(50, 255, 126, 1.0);
+    --btn-off: rgba(255, 56, 56);
+    --btn-off-hover: rgba(255, 77, 77);
 
 }
 
@@ -182,27 +180,21 @@ footer {
     background-color: var(--shape-color-square);
 }
 
-.triangle {
-    width: 100px;
-    height: 100px;
-    border-right: 5px solid;
-    border-bottom: 5px solid;
-    position: relative;
-    overflow: hidden;
-    transform: skewX(25deg);
+
+#triangle{
+    width: 8rem;
+    height: 8rem;
 }
 
-.triangle::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    border-left: 5px solid;
-    transform: skewX(-45deg);
-    transform-origin: bottom right;
-    background: var(--main-color-red);
+.triangle{
+    fill: var(--shape-color-triangle);
+    stroke:var(--main-color-black);
+    stroke-width:2px;
+}
+
+.triangle[style] {
+    stroke:var(--main-color-black);
+    stroke-width:2px;
 }
 
 .rectangle {
@@ -233,9 +225,8 @@ footer {
 
 }
 
-
 .btn-on {
-    background-color:var(--btn-on) ;
+    background-color: var(--btn-on);
 }
 
 .btn-on:hover {
