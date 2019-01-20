@@ -4,6 +4,17 @@ let toggleSwitch = false;
 let elements = [...document.getElementById('target').children];
 let shapes = [];
 let myVar;
+let moving;
+let element;
+let i = 0;
+
+let cordinates = {
+    x: 0,
+    y: 0
+
+}
+
+
 let square = {
     fillColor: "rgb(255, 56, 56)",
     setColor: "rgb(255, 242, 0)",
@@ -23,21 +34,9 @@ let triangle = {
     originalFillColor: "rgb(255, 56, 56)",
 };
 
-
-(function init() {
-    shapes = [];
-    for (let i = 0; i < elements.length; i++) {
-        shapes.push(elements[i].id);
-    }
-    intervalSet();
-
-})();
-
-
-function intervalSet() {
+let intervalSet = () => {
     myVar = setInterval(blink, 2000);
-}
-
+};
 
 async function blink() {
     for (let element of shapes) {
@@ -45,7 +44,7 @@ async function blink() {
     }
 }
 
-function changeColor(element) {
+let changeColor = (element) => {
     if (element === "triangle") {
         eval(element).fillColor = eval(element).setColor;
         document.getElementById("triangleSVG").style.fill = (eval(element).fillColor === document.getElementById("triangleSVG").style.fill) ? 'white' : eval(element).setColor;
@@ -56,89 +55,144 @@ function changeColor(element) {
 
 };
 
-
-function togglebtn() {
+let togglebtn = () => {
     if (toggleSwitch) {
         document.getElementById("btn-on").disabled = true;
         document.getElementById("btn-off").disabled = false;
         toggleSwitch = false;
-        console.log('ON');
         intervalSet();
 
     } else {
         document.getElementById("btn-on").disabled = false;
         document.getElementById("btn-off").disabled = true;
         toggleSwitch = true;
-        console.log('OFF');
         clearTimeout(myVar);
 
     }
 
-}
+};
 
-
-function dragstart_handler(ev) {
+let dragStartHandler = (ev) => {
     ev.dataTransfer.setData("text/plain", ev.target.id);
     picked = ev.target.id;
     colorPick = document.getElementById(`${picked}`);
 
-}
+};
 
-function dragover_handler(ev) {
+let dragOverHandler = (ev) => {
     ev.preventDefault();
-    ev.dataTransfer.dropEffect = "move"
-}
+    ev.dataTransfer.dropEffect = "copy"
+};
 
-function drop_handler(ev) {
+let dropHandler = (ev) => {
     ev.preventDefault();
 
-    const style = getComputedStyle(colorPick);
+    if (colorPick) {
+        const style = getComputedStyle(colorPick);
 
-    if (ev.target.nodeName === "polygon") {
-        ev.target.parentElement.style.fill = style.backgroundColor;
-        eval(ev.target.parentElement.parentElement.id).setColor = style.backgroundColor;
-    } else {
-        ev.target.style.backgroundColor = style.backgroundColor;
-        eval(ev.target.className).setColor = style.backgroundColor;
+        if (ev.target.nodeName === "polygon") {
+            ev.target.parentElement.style.fill = style.backgroundColor;
+            eval(ev.target.parentElement.parentElement.id).setColor = style.backgroundColor;
+            colorPick = undefined;
+        } else {
+            ev.target.style.backgroundColor = style.backgroundColor;
+            eval(ev.target.className).setColor = style.backgroundColor;
+            colorPick = undefined;
+
+        }
     }
 
-}
+};
 
 
+/*
 elements.forEach((element) => {
-    element.onmousedown = function (event) {
+    element.addEventListener('mousedown',
+        (event) => {
+            let shiftX = event.clientX - element.getBoundingClientRect().left;
+            let shiftY = event.clientY - element.getBoundingClientRect().top;
 
-        let shiftX = event.clientX - element.getBoundingClientRect().left;
-        let shiftY = event.clientY - element.getBoundingClientRect().top;
 
-        element.style.position = 'absolute';
-        element.style.zIndex = 1000;
-        document.body.append(element);
+            let moveAt = (pageX, pageY) => {
+                element.style.left = pageX - shiftX + 'px';
+                element.style.top = pageY - shiftY + 'px';
+            }
+            element.style.position = 'absolute';
+            element.style.zIndex = 10;
+            document.body.append(element);
 
-        moveAt(event.pageX, event.pageY);
-
-        function moveAt(pageX, pageY) {
-            element.style.left = pageX - shiftX + 'px';
-            element.style.top = pageY - shiftY + 'px';
-        }
-
-        function onMouseMove(event) {
             moveAt(event.pageX, event.pageY);
-        }
 
-        document.addEventListener('mousemove', onMouseMove);
 
-        element.onmouseup = function () {
-            document.removeEventListener('mousemove', onMouseMove);
-            element.onmouseup = null;
-        };
+            /!*let onMouseMove = (event) => {
+                moveAt(event.pageX, event.pageY);
+            }*!/
 
-    };
+            let onMouseMove = (event) => {
+                moveAt(event.pageX, event.pageY);
 
+            }
+
+            document.addEventListener('mousemove', onMouseMove);
+
+            element.addEventListener('mouseup', () => {
+                document.removeEventListener('mousemove', onMouseMove);
+                element.onmouseup = null;
+
+            })
+
+        });
     element.ondragstart = function () {
         return false;
     };
 });
+*/
 
 
+let dragShapeStart = (event) => {
+    moving = event.target.id;
+    element = document.getElementById(moving);
+
+
+};
+
+let dragEndShapeHandler = (event) => {
+
+    let moveTo = (x, y) => {
+        event.target.parentElement.style.position = 'relative';
+        event.target.style.position = 'absolute';
+        event.target.style.zIndex = 10 + i;
+        i++;
+        event.target.style.left = cordinates.x + 'px';
+        event.target.style.top = cordinates.y + 'px';
+
+    };
+    moveTo(cordinates.x, cordinates.y);
+};
+
+let dragOverShapeHandler = (event) => {
+    let shapeWidth = parseInt(window.getComputedStyle(element).getPropertyValue('width'), 10);
+    let shapeHeight = parseInt(window.getComputedStyle(element).getPropertyValue('height'), 10);
+    let getTargetShape = document.getElementById('target');
+    let targetShapeWidth = parseInt(window.getComputedStyle(getTargetShape).getPropertyValue('width'), 10);
+    let targetShapeHeight = parseInt(window.getComputedStyle(getTargetShape).getPropertyValue('width'), 10);
+
+if (event.target.id === 'target'){
+    cordinates.x = event.layerX >= targetShapeWidth - shapeWidth ? targetShapeWidth - shapeWidth : event.layerX;
+    cordinates.y = event.layerY >= targetShapeHeight - shapeHeight ? targetShapeHeight - shapeHeight : event.layerY;
+
+}
+
+
+};
+
+
+(init = () => {
+    shapes = [];
+    for (let i = 0; i < elements.length; i++) {
+        shapes.push(elements[i].id);
+    }
+    intervalSet();
+
+})();
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>En-Co Teszt Feladat</title>
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
 <div class="cointainer">
@@ -12,23 +12,38 @@
     </header>
     <main>
         <div class="color__div" id="colors">
-            <div class="color color1" id="color1" draggable="true" ondragstart="dragstart_handler(event);"></div>
-            <div class="color color2" id="color2" draggable="true" ondragstart="dragstart_handler(event);"></div>
-            <div class="color color3" id="color3" draggable="true" ondragstart="dragstart_handler(event);"></div>
-            <div class="color color4" id="color4" draggable="true" ondragstart="dragstart_handler(event);"></div>
-            <div class="color color5" id="color5" draggable="true" ondragstart="dragstart_handler(event);"></div>
-            <div class="color color6" id="color6" draggable="true" ondragstart="dragstart_handler(event);"></div>
-            <div class="color color7" id="color7" draggable="true" ondragstart="dragstart_handler(event);"></div>
-            <div class="color color8" id="color8" draggable="true" ondragstart="dragstart_handler(event);"></div>
+            <div class="color color1" id="color1" draggable="true" ondragstart="dragStartHandler(event);"></div>
+            <div class="color color2" id="color2" draggable="true" ondragstart="dragStartHandler(event);"></div>
+            <div class="color color3" id="color3" draggable="true" ondragstart="dragStartHandler(event);"></div>
+            <div class="color color4" id="color4" draggable="true" ondragstart="dragStartHandler(event);"></div>
+            <div class="color color5" id="color5" draggable="true" ondragstart="dragStartHandler(event);"></div>
+            <div class="color color6" id="color6" draggable="true" ondragstart="dragStartHandler(event);"></div>
+            <div class="color color7" id="color7" draggable="true" ondragstart="dragStartHandler(event);"></div>
+            <div class="color color8" id="color8" draggable="true" ondragstart="dragStartHandler(event);"></div>
         </div>
-        <div id="target">
-            <div class="square" id="square" ondrop="drop_handler(event);" ondragover="dragover_handler(event);"></div>
+        <div id="target"
+             ondragover="dragOverShapeHandler(event);"
+             ondragend="dragEndShapeHandler(event);"
+        >
+            <div class="square" id="square"
+                 draggable="true"
+                 ondrop="dropHandler(event);"
+                 ondragover="dragOverHandler(event);"
+                 ondragstart="dragShapeStart(event);"></div>
 
-            <div class="rectangle" id="rectangle" ondrop="drop_handler(event);"
-                 ondragover="dragover_handler(event);"></div>
-            <div  id="triangle">
-                <svg class="triangle" id="triangleSVG" ondrop="drop_handler(event);" ondragover="dragover_handler(event);" >
-                    <polygon points="40,0 0,60 80,60"></polygon>
+            <div class="rectangle" id="rectangle"
+                 draggable="true"
+                 ondrop="dropHandler(event);"
+                 ondragover="dragOverHandler(event);"
+                 ondragstart="dragShapeStart(event);"></div>
+            <div id="triangle"
+                 draggable="true"
+                 ondragstart="dragShapeStart(event);">
+                <svg class="triangle" id="triangleSVG"
+                     ondrop="dropHandler(event);"
+                     ondragover="dragOverHandler(event);"
+                >
+                    <polygon points="40,0 0,79 80,79"></polygon>
                 </svg>
             </div>
 
