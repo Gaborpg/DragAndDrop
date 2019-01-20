@@ -178,8 +178,11 @@ let dragOverShapeHandler = (event) => {
     let targetShapeHeight = parseInt(window.getComputedStyle(getTargetShape).getPropertyValue('width'), 10);
 
 if (event.target.id === 'target'){
-    cordinates.x = event.layerX >= targetShapeWidth - shapeWidth ? targetShapeWidth - shapeWidth : event.layerX;
-    cordinates.y = event.layerY >= targetShapeHeight - shapeHeight ? targetShapeHeight - shapeHeight : event.layerY;
+    cordinates.x = event.offsetX >= targetShapeWidth - shapeWidth ? targetShapeWidth - shapeWidth : event.offsetX;
+    cordinates.y = event.offsetY >= targetShapeHeight - shapeHeight ? targetShapeHeight - shapeHeight : event.offsetY;
+
+} else {
+    console.log(event);
 
 }
 
